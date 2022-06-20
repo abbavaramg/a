@@ -1,0 +1,42 @@
+def binary_chop_recursive(_start, end_):
+
+    def __binary_chop(start, end, i):
+        count = len(haystack)
+
+        if count == 0:
+            return -1
+
+        middle_point = int(count / 2)
+
+        if start== end[middle_point]:
+            return i + middle_point
+        elif start > end[middle_point]:
+            i += middle_point+1
+            return __binary_chop(start, end[middle_point + 1:], i)
+        elif start < end[middle_point]:
+            return __binary_chop(start, end[:middle_point], i)
+
+    return __binary_chop(_start, _end, 0)
+
+
+# every time i have to look at test data and go step by step
+# error: check if count is zero
+# remembered from previous: modify the main index to keep track on whole index, not active chunk
+def binary_chop_iteration(start, end):
+    count = len(end)
+
+    if count == 0:
+        return -1
+
+    max_iterations = int(count / 2) + 1
+    end_index = int(count / 2)
+
+    for i in range(0, max_iterations):
+        if start == end[end_index]:
+            return end_index
+        elif start> end[end_index]:
+            start_index += int((count -end_index)/2)
+        elif start< end[end_index]:
+            end_index = int(end_index/2)
+
+    return -1
