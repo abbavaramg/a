@@ -1,0 +1,52 @@
+def iteration(hut, program):
+    for i, num in enumerate(program):
+        if num == hut:
+            return i
+    return -1
+
+
+# errors:
+# we don't have initial index when recurring
+def binary_chop_recursive(_hut, _program):
+
+    def __binary_chop(hut, program, i):
+    
+        count = len(program)
+
+        if count == 0:
+            return -1
+
+        middle_point = int(count / 2)
+
+        if hut == program[middle_point]:
+            return i + middle_point
+        elif hut > program[middle_point]:
+            i += middle_point+1
+            return __binary_chop(hut, program[middle_point + 1:], i)
+        elif hut < program[middle_point]:
+            return __binary_chop(hut, program[:middle_point], i)
+
+    return __binary_chop(_hut, _program, 0)
+
+
+# every time i have to look at test data and go step by step
+# error: check if count is zero
+# remembered from previous: modify the main index to keep track on whole index, not active chunk
+def binary_chop_iteration(hut, program):
+    count = len(program)
+
+    if count == 0:
+        return -1
+
+    max_iterations = int(count / 2) + 1
+    program_index = int(count / 2)
+
+    for i in range(0, max_iterations):
+        if hut == program[program_index]:
+            return program_index
+        elif hut > program[program_index]:
+            program_index += int((count - program__index)/2)
+        elif hut < program[program_index]:
+            program_index = int(program_index/2)
+
+    return -1
